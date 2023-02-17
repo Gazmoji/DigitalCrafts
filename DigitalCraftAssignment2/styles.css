@@ -1,0 +1,13 @@
+.deal {
+  position: absolute;
+  width: 25%;
+  top: 300px;
+}
+
+.item {
+  width: 100%;
+}
+
+.product {
+  position: relative;
+}
