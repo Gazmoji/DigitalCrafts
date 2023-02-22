@@ -23,3 +23,6 @@ for (let i = 0; i < movies.length; i++) {
   movieUL.appendChild(divTitle);
   movieUL.appendChild(iYear);
 }
+
+
+
