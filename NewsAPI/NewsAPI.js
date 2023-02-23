@@ -1,5 +1,6 @@
 const theLayout = document.getElementById("layout");
 const sourcesSelect = document.getElementById("sourcesSelect");
+const dropDown = document.getElementById("sourcesSelect");
 
 const articles = news.articles;
 
@@ -24,16 +25,15 @@ const theSources = displaySources.map((source) => {
 
 sourcesSelect.innerHTML = theSources;
 
-//
-const newsJS = articles.map((article) => article.source.name);
-
-sourcesSelect.addEventListener("change", function () {
-  const filterInformation = articles.filter(function (articles) {
-    if (articles == newsJS) {
-      return filterInformation;
-    } else {
-      return console.log("No News Found");
-    }
+function filterSources() {
+  if (this.value == "All Sources") {
+    return generateInfo(articles);
+  }
+  const filteredArticles = articles.filter((article) => {
+    return article.source.name === this.value;
   });
-});
-//
+  generateInfo(filteredArticles);
+}
+generateInfo(articles);
+
+dropDown.addEventListener("change", filterSources);

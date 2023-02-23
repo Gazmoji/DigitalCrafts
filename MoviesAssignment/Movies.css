@@ -1,0 +1,22 @@
+.size {
+  width: 200px;
+  padding: 50px;
+  background-color: rgb(43, 114, 180);
+}
+
+input {
+  padding: 5px;
+  justify-content: center;
+}
+
+body {
+  background-color: ghostwhite;
+}
+
+button {
+  padding: 2px;
+}
+
+li {
+  font-size: larger;
+}
