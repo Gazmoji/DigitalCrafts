@@ -1,3 +1,4 @@
+
 function startIncrementing() {
   let counter = 10;
   setInterval(function () {
@@ -5,3 +6,6 @@ function startIncrementing() {
     console.log(counter);
   }, 2000);
 }
+
+startIncrementing()
+console.log(counter)

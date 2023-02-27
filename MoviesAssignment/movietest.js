@@ -33,7 +33,6 @@ function Display() {
 }
 
 function deleteMovie(title) {
-  console.log(title);
   const movieList = allMovies.filter((movie) => {
     return movie.Title !== title;
   });
