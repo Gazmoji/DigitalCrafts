@@ -1,0 +1,132 @@
+body {
+  background-color: #222;
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+/* set the text color for the entire page */
+body,
+input,
+button {
+  color: #ddd;
+}
+
+/* style the heading */
+h1 {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 36px;
+}
+
+/* style the input fields */
+input[type="text"] {
+  display: block;
+  margin: 20px auto;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  width: 300px;
+  background-color: #333;
+  color: #ddd;
+}
+
+/* style the add button */
+#addButton {
+  display: block;
+  margin: 20px auto;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  width: 300px;
+  background-color: #00bfff;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* style the search section */
+.search {
+  text-align: center;
+}
+
+/* style the search button */
+#searchButton {
+  display: block;
+  margin: 20px auto;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  width: 300px;
+  background-color: #333;
+  color: #ddd;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* style the delete section */
+section:last-of-type {
+  text-align: center;
+}
+
+/* style the delete button */
+#deleteButton {
+  display: block;
+  margin: 20px auto;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  width: 300px;
+  background-color: #ff0000;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* style the unordered lists */
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* style the email display section */
+#emailDisplay {
+  text-align: center;
+}
+
+/* style the coffee orders section */
+#ULlist {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  margin: 50px auto;
+  max-width: 900px;
+}
+
+/* style the coffee order items */
+.coffee-item {
+  background-color: #333;
+  color: #ddd;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+/* style the coffee order item heading */
+.coffee-item h4 {
+  margin-top: 0;
+}
+
+/* style the coffee order item details */
+.coffee-item p {
+  margin: 10px 0;
+}
+
+/* style the coffee order item delete button */
+.coffee-item button {
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #ff0000;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}

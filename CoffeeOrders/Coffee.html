@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="Coffee.css" />
+    <title>Coffee Orders</title>
+  </head>
+  <body>
+    <h1>Enter Your Coffee Orders Here</h1>
+    <input
+      type="text"
+      placeholder="email"
+      id="emailTextBox"
+      pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"
+      required
+    />
+    <input type="text" placeholder="type" id="typeTextBox" />
+    <input type="text" placeholder="size" id="sizeTextBox" />
+    <input type="text" placeholder="price" id="priceTextBox" />
+    <button id="addButton">Add your Coffee Order</button>
+    <section class="search">
+      <label>Search for your order via e-mail.</label>
+      <input
+        type="text"
+        placeholder="email"
+        id="search"
+        pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"
+        required
+      />
+      <button id="searchButton">Click to Search!</button>
+    </section>
+    <section>
+      <label>Enter an e-mail to delete it.</label>
+      <input
+        type="text"
+        placeholder="delete"
+        id="delete"
+        pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"
+        required
+      />
+      <button id="deleteButton">Enter to Delete</button>
+    </section>
+    <ul id="emailDisplay"></ul>
+    <h3>Here are all the current coffee orders!</h3>
+    <ul id="ULlist"></ul>
+    <script src="Coffee.js"></script>
+  </body>
+</html>

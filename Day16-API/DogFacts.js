@@ -1,5 +1,4 @@
 const dogUL = document.getElementById("dogUL");
-const dogID = document.getElementById("dogimage");
 
 let request = new XMLHttpRequest();
 
