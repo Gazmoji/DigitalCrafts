@@ -7,7 +7,7 @@ const secondList = document.getElementById("secondList");
 function getWeather() {
   let location = cityTextBox.value;
   fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=feeb1e15933c3850daf212f6801a413c&units=imperial`
+    `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=feeb1e15933c3850daf212f6801a413c&units=metric`
   )
     .then((response) => response.json())
     .then((information) => {
@@ -33,7 +33,7 @@ function autoLocation() {
       let longitude = position.coords.longitude;
 
       fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=feeb1e15933c3850daf212f6801a413c&units=imperial`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=feeb1e15933c3850daf212f6801a413c&units=metric`
       )
         .then((response) => response.json())
         .then((information) => {
