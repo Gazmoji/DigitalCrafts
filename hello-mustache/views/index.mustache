@@ -1,0 +1,17 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h1>Trips</h1>
+        {{#trips}}
+        <form method = "POST" action = "/trips/delete-trip">
+            <li>{{title}}</li>
+            <input type = "hidden" value = {{tripId}} name = "tripId" />
+            <button>Remove</button>
+        </form>
+        {{/trips}}
+        
+
+    </body>
+</html>

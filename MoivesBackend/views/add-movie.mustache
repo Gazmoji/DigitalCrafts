@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Add Movies Here</title>
+<link rel="stylesheet" href="/css/version-1/add-movie.css"></link>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+
+
+<body>
+
+<h1>Enter Movie Information</h1>
+
+<form method = 'POST' action ="/add-movie">
+<input type = "text" placeholder = "Movie Title" name = "movieTitle" />
+<select name="movieGenre">
+  <option value="">Select a Genre</option>
+  <option value="Action">Action</option>
+  <option value="Comedy">Comedy</option>
+  <option value="Romance">Romance</option>
+  <option value="Horror">Horror</option>
+  <option value="Drama">Drama</option>
+</select>
+<input type = "text" placeholder = "Movie Image URL" name = "moviePoster" />
+    <button>Add Movie</button>
+    </form>
+
+
+</body>
+</html>
