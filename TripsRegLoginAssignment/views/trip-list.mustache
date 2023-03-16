@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Full Trip List</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+
+<body>
+<a href='/add-trip'>Click here add another trip.</a>
+<a href='/login'>Click here to signout.</a>
+{{#allTrips}}
+<form method = 'POST' action = "/delete-trip">
+<h1>{{location}} </h1> 
+<img src ='{{image}}' style="max-width: 30rem" />
+<h4>Expected Departure Date: {{departure}} </h4>
+<h4>Expected Return Date: {{return}} </h4>
+<input type="hidden" name="tripid" value="{{tripid}}" />
+<button>Delete This Trip</button>
+</form>
+{{/allTrips}}
+</body>
+</html>
