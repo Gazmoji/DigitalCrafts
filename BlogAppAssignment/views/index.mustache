@@ -1,0 +1,35 @@
+
+
+<h1>Current Blogs</h1>
+
+<a href='/login'>Click here to signout.</a>
+
+{{#information}}
+
+<form method = 'POST' action = '/delete'>
+
+<h2>{{title}}</h2>
+<input type = 'hidden' name='blogId' value = {{id}} />
+<p>{{body}}</p>
+
+<li>Date Published: {{date_created}}
+{{date_updated}}
+<button>Delete Blog Post</button>
+</li>
+</form>
+<form method = 'POST' action ='/edit-post'>
+<button>Edit Post</button>
+<input type = 'text' name ='blogTitle' />
+<input type = 'text' name ='blogBody' />
+<input type = 'hidden' name='blogId' value = {{id}} />
+</form>
+{{/information}}
+
+
+<h2>Add a Blog Post</h2>
+<form method = 'POST' action ='/blogs'>
+<input type = 'text' placeholder='Enter Blog Title' name='blogTitle' />
+<input type = 'text' placeholder='Enter Blog Description' name='blogBody' />
+<input type = 'text' placeholder='Enter Date Added' name='dateCreated' />
+<button>Add Blog</button>
+</form>

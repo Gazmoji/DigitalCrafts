@@ -1,0 +1,22 @@
+{{#movies}}
+
+<li>
+<form method = 'POST' action = '/delete-movie'>
+{{name}} - {{year}}
+<input type = 'hidden' name='movieId' value = {{id}} />
+</li>
+<button>DELETE</button>
+</form>
+{{/movies}}
+
+<h2>Add movie</h2>
+<form method = 'POST' action ='/add-movie'>
+<input type = 'text' placeholder='Enter Movie Name' name='movieName' />
+<input type = 'text' placeholder='Enter Movie Year' name='movieYear' />
+</form>
+
+{{#friendmovies}}
+
+{{friend}} - {{movie}}
+
+{{/friendmovies}}
