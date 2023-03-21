@@ -2,16 +2,9 @@ const express = require("express");
 const app = express();
 const mustacheExpress = require("mustache-express");
 const pgp = require("pg-promise")();
-const session = require("express-session");
 app.engine("mustache", mustacheExpress());
 
-app.use(
-  session({
-    secret: "gazmoji",
-    resave: false,
-    saveUninitialized: true,
-  })
-);
+
 
 app.set("views", "./views");
 

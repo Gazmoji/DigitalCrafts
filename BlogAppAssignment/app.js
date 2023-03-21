@@ -3,6 +3,7 @@ const app = express();
 const mustacheExpress = require("mustache-express");
 const pgp = require("pg-promise")();
 const session = require("express-session");
+const bcrypt = require("bcryptjs");
 
 const connectionString =
   "postgres://wfnsjsmt:e9bTD2hnGbO53sdF5CbmT0fKJERRiGsf@ruby.db.elephantsql.com/wfnsjsmt";
@@ -28,22 +29,55 @@ app.get("/login", async (req, res) => {
   res.render("register-login");
 });
 
+app.get("/comments", async (req, res) => {
+  res.render("comments");
+});
+
 app.post("/login", async (req, res) => {
-  req.session.username = req.body.username;
-  res.redirect("/");
+  const username = req.body.username;
+  const password = req.body.password;
+
+  let user = await db.oneOrNone(
+    "SELECT id, username, password from users where username = $1",
+    [username]
+  );
+  if (user) {
+    const result = await bcrypt.compare(password, user.password);
+    if (result) {
+      if (req.session) {
+        req.session.userid = user.id;
+      }
+      res.redirect("/");
+    } else {
+      res.render("register-login", {
+        errorMessage: "Invalid Username or Password.",
+      });
+    }
+  } else {
+    res.render("register-login", {
+      errorMessage: "Invalid Username or Password.",
+    });
+  }
 });
 
 app.post("/register", async (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  const message = req.body.message;
+
+  let salt = await bcrypt.genSalt(10);
+  let newPassword = await bcrypt.hash(password, salt);
   await db.none("INSERT INTO users(username, password) VALUES ($1, $2)", [
-    req.body.username,
-    req.body.password,
+    username,
+    newPassword,
   ]);
+
   res.redirect("/login");
 });
 
 app.get("/", async (req, res) => {
   const information = await db.any(
-    "SELECT id, title, body, date_created, date_updated, is_published FROM blogapp"
+    "SELECT id, title, body, date_created, date_updated, is_published, comments FROM blogapp"
   );
   res.render("index", { information: information });
 });
@@ -76,6 +110,18 @@ app.post("/edit-post", async (req, res) => {
   ]);
 
   res.redirect("/");
+});
+
+app.post("/comments", async (req, res) => {
+  const blogComment = req.body.blogComment;
+  await db.none("INSERT INTO blogapp(comments) VALUES ($1)", [blogComment]);
+  res.render("comments", { comments: comments });
+});
+
+app.post("/delete-comment", async (req, res) => {
+  const blogComment = req.body.blogComment;
+  await db.none("DELETE FROM blogapp WHERE comments = $1", [blogComment]);
+  res.redirect("/comments");
 });
 
 app.listen(8080, () => {
