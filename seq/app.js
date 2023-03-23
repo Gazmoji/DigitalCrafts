@@ -3,6 +3,7 @@ const app = express();
 const mustacheExpress = require("mustache-express");
 const session = require("express-session");
 const models = require("./models");
+const comments = require("./models/comments");
 
 app.engine("mustache", mustacheExpress());
 
@@ -21,7 +22,9 @@ app.set("view engine", "mustache");
 app.use(express.urlencoded());
 
 app.get("/index", async (req, res) => {
-  const posts = await models.Blog.findAll({});
+  const posts = await models.Blog.findAll({
+    include: [{ model: models.Comments, as: "comments" }],
+  });
   res.render("index", { posts: posts });
 });
 
@@ -31,7 +34,7 @@ app.post("/add-blog", async (req, res) => {
     body: req.body.body,
     category: req.body.category,
   });
-  await newPost.save();
+  const _ = await newPost.save();
   res.redirect("/index");
 });
 
@@ -45,10 +48,22 @@ app.post("/delete-post", async (req, res) => {
 });
 
 app.post("/add-comment", async (req, res) => {
-  const newComment = await models.Blog.build({
-    comment: req.body.comment,
+  const addComment = await models.Comments.build({
+    title: req.body.commentTitle,
+    body: req.body.commentBody,
+    post_id: parseInt(req.body.post_id),
   });
-  await newComment.save();
+
+  const _ = await addComment.save();
+  res.redirect("/index");
+});
+
+app.post("/delete-comment", async (req, res) => {
+  await models.Comments.destroy({
+    where: {
+      id: parseInt(req.body.commentId),
+    },
+  });
   res.redirect("/index");
 });
 

@@ -46,10 +46,28 @@
                 <button>view details</button>
             </form>
             <form action='/add-comment' method='post'>
-                <input type = 'text' placeholder= 'write a commment!' name = 'comment'>
+                <input type = 'text' placeholder= 'Comment Title' name = 'commentTitle'>
+                <input type = 'text' placeholder= 'Write Comment' name = 'commentBody'>
                 <input type="hidden" name="post_id" value={{id}}>
                 <button>submit</button>
             </form>
+            
+
+            Comments:
+            
+            {{#comments}}
+            <form method = 'post' action = '/delete-comment'>
+            <div>
+            <h3>{{title}}</h3>
+            </div>
+            <p>
+            {{body}}
+            </p>
+            <input type="hidden" name="commentId" value={{id}}>
+            <button>Delete Comment</button>
+            </form>
+            {{/comments}}
+            
             <div>------------------------------------------------------------------</div>
         </li>
         {{/posts}}
