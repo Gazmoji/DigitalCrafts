@@ -1,0 +1,36 @@
+@media (max-width: 767px) {
+  body {
+    font-size: 16px;
+  }
+  #messagesUL li {
+    display: block;
+    margin: 10px 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  body {
+    font-size: 18px;
+    padding: 20px;
+  }
+  #messagesUL li {
+    display: inline-block;
+    margin: 0 10px 10px 0;
+    max-width: 50%;
+    vertical-align: top;
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    font-size: 20px;
+    margin: 20px;
+  }
+
+  #messagesUL li {
+    display: block;
+    margin: 10px;
+    width: calc(33.33% - 20px);
+    float: left;
+  }
+}

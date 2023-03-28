@@ -1,0 +1,26 @@
+
+<h1>Add a task here:</h1>
+<form method ='post' action = '/add-item'>
+<input type = "text" placeholder = 'Enter Task Name' name = "taskName"/>
+<input type = "text" placeholder = 'Enter Task Priority' name = "taskPriority" />
+<input type = "text" placeholder = 'Enter Date' name = "completedDate" />
+<input type = "hidden" name = "_id" value = {{_id}} />
+<button>Add Item</button>
+</form>
+{{#todos}}
+<form method = 'post' action = '/delete-item'>
+<h2>{{taskName}}</h2>
+<p>{{taskPriority}}</p>
+<p>{{completedDate}}</p>
+ <input type = "hidden" name = "_id" value = {{_id}} />
+ <button>Delete Item</button>
+</form>
+<form method = 'post' action = '/update-item'>
+<input type = "text" placeholder = 'Enter Updated Name' name = "taskName"/>
+<input type = "text" placeholder = 'Enter Updated Priority' name = "taskPriority" />
+<input type = "text" placeholder = 'Enter Updated Date' name = "completedDate" />
+ <input type = "hidden" name = "_id" value = {{_id}} />
+<button>Update Item</button>
+</form>
+
+{{/todos}}

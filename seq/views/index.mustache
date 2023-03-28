@@ -7,6 +7,10 @@
     <title>Document</title>
 </head>
 <body>
+<form action ='/search' method ='POST'>
+<input type ='text' name='searchbox'>
+<button>search</button>
+</form>
 <form action='filter' method='post'>
 <button name=filterbutton>Filter by Category</button>
 <select name="category" id="category">
@@ -16,8 +20,18 @@
     <option value="android">android</option>
     </select>
     </form>
-<form action="/index">
+<form action ='/filterDate' method="post">
+<button>Filter by Date</button>
+<select name="filterDate">
+<option value='recent'>Recently Created</option>
+<option value='oldest'>Oldest Created</option>
+</select>
+</form>
+<form action ='index'>
     <button>viewall</button>
+    </form>
+<form action ='chat'>
+<button id='chatButton'>Click here to join the chatroom</button>
 </form>
 <h1>posts</h1>
 <form method = "POST" action = "/add-blog">
