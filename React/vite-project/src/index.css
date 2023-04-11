@@ -31,3 +31,9 @@ h3 {
   font-size: 20px;
   padding-right: 1500px;
 }
+
+li {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+}
