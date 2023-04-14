@@ -5,6 +5,8 @@ import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainContent from "./main-content";
 import AddBook from "./AddBook";
+import Register from "./register";
+import Login from "./login";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -13,6 +15,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/" element={<App />} />
         <Route path="/add-book" element={<AddBook />} />
         <Route path="/main-content" element={<MainContent />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
