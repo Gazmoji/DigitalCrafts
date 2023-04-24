@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import * as actionCreators from "./store/creators/actionCreators";
 
-function Login() {
+function Login(props) {
   const navigate = useNavigate();
   const handleLogin = () => {
+    props.handleLogin();
     navigate("/");
   };
 
@@ -32,4 +34,21 @@ function Login() {
   );
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    isAuth: state.isAuth,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleLogin: () => {
+      try {
+        dispatch(actionCreators.isAuth());
+      } catch (error) {
+        console.error("Error dispatching isAuth action:", error);
+      }
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

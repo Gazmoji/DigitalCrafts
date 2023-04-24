@@ -80,6 +80,7 @@ app.post("/register-user", async (req, res) => {
 
   await user.save();
   res.json({ success: true });
+  
 });
 
 app.post("/login-user", async (req, res) => {

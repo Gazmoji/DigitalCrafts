@@ -1,7 +1,9 @@
-import { Component } from "react";
+import { connect } from "react-redux";
+import * as actionCreators from "./store/creators/actionCreators";
 
-class MainContent extends Component {
-  handleDeleteBook = async (bookid) => {
+const MainContent = (props) => {
+  const { books, addToCart } = props;
+  const handleDeleteBook = async (bookid) => {
     const response = await fetch(`http://localhost:8080/api/books/${bookid}`, {
       method: "DELETE",
       headers: {
@@ -12,7 +14,7 @@ class MainContent extends Component {
     console.log(result);
   };
 
-  handleUpdateBook = async () => {
+  const handleUpdateBook = async () => {
     const response = await fetch("http://localhost:8080/api/books", {
       method: "POST",
       headers: {
@@ -21,24 +23,38 @@ class MainContent extends Component {
     });
     await response.json();
   };
-  render() {
-    const books = this.props.books;
-    const bookItems = books.map((book) => {
-      return (
-        <div key={book.id}>
-          <li id="info">{book.title}</li>
-          <li id="info"> Publisher: {book.author}</li>
-          <li id="info">Country/Year: {book.country}</li>
-          <img src={`${book.imgsrc}`} width="100px" />
-          <button onClick={() => this.handleDeleteBook(book.id)}>
-            Delete Book
-          </button>
-          <button onClick={this.handleUpdateBook}>Update Book</button>
-        </div>
-      );
-    });
-    return <ul>{bookItems}</ul>;
-  }
-}
 
-export default MainContent;
+  const bookItems = books.map((book) => (
+    <div key={book.id}>
+      <li id="info">{book.title}</li>
+      <li id="info"> Publisher: {book.author}</li>
+      <li id="info">Country/Year: {book.country}</li>
+      <img src={`${book.imgsrc}`} width="100px" />
+      <button onClick={() => handleDeleteBook(book.id)}>Delete Book</button>
+      <button onClick={handleUpdateBook}>Update Book</button>
+      <button onClick={() => props.addToCart()}>Add to Cart</button>
+    </div>
+  ));
+
+  console.log(props.book);
+  return (
+    <>
+      <ul>{bookItems}</ul>
+      <h4>Total Number of Items in Cart: {props.book}</h4>
+    </>
+  );
+};
+
+const mapStateToProps = (state) => {
+  return {
+    book: state.book,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addToCart: () => dispatch(actionCreators.books()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainContent);
