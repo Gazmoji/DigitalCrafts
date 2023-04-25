@@ -10,3 +10,8 @@ export const isAuth = () => {
     type: actionTypes.AUTH,
   };
 };
+export const favorite = () => {
+  return {
+    type: actionTypes.ADD_FAVORITE,
+  };
+};

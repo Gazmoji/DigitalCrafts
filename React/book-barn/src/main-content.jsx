@@ -33,6 +33,7 @@ const MainContent = (props) => {
       <button onClick={() => handleDeleteBook(book.id)}>Delete Book</button>
       <button onClick={handleUpdateBook}>Update Book</button>
       <button onClick={() => props.addToCart()}>Add to Cart</button>
+      <button onClick={() => props.addToFavorites()}>Add to Favorites</button>
     </div>
   ));
 
@@ -41,6 +42,7 @@ const MainContent = (props) => {
     <>
       <ul>{bookItems}</ul>
       <h4>Total Number of Items in Cart: {props.book}</h4>
+      <h3>Favorites: {props.favorite}</h3>
     </>
   );
 };
@@ -48,12 +50,14 @@ const MainContent = (props) => {
 const mapStateToProps = (state) => {
   return {
     book: state.book,
+    favorite: state.favorite,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     addToCart: () => dispatch(actionCreators.books()),
+    addToFavorite: () => dispatch(actionCreators.favorite()),
   };
 };
 

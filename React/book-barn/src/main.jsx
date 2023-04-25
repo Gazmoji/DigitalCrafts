@@ -7,12 +7,21 @@ import MainContent from "./main-content";
 import AddBook from "./AddBook";
 import Register from "./register";
 import Login from "./login";
-import { createStore } from "redux";
-import reducer from "./store/reducer";
+import { createStore, combineReducers } from "redux";
 import { Provider } from "react-redux";
 
+import authReducer from "./store/reducers/authReducer";
+import cartCounterReducer from "./store/reducers/cartCounterReducer";
+import favoriteReducer from "./store/reducers/favoriteReducer";
+
+const rootReducer = combineReducers({
+  authReducer: authReducer,
+  cartCounterReducer: cartCounterReducer,
+  favoriteReducer: favoriteReducer,
+});
+
 const store = createStore(
-  reducer,
+  rootReducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
