@@ -1,58 +1,68 @@
-import { Component } from "react";
+import { useState, useEffect } from "react";
 import Header from "./header";
 import MainContent from "./main-content";
 import AddBook from "./AddBook";
 import Register from "./register";
 import Login from "./login";
+import { Route, Routes } from "react-router-dom";
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      users: [],
-      books: [],
-      search: "",
-    };
-  }
-  componentDidMount() {
-    this.fetchBooks();
-    this.fetchUsers();
-  }
+const token = localStorage.getItem("jwtToken");
 
-  fetchUsers = async () => {
+function App() {
+  const [users, setUsers] = useState([]);
+  const [books, setBooks] = useState([]);
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    fetchUsers();
+    fetchBooks();
+  }, []);
+
+  const fetchUsers = async () => {
     const response = await fetch("http://localhost:8080/register");
     const users = await response.json();
-    this.setState({
-      users: users,
-    });
+    setUsers(users);
   };
 
-  fetchBooks = async () => {
-    const response = await fetch("http://localhost:8080/api/books");
+  const fetchBooks = async () => {
+    const response = await fetch("http://localhost:8080/api/books", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const books = await response.json();
-    this.setState({
-      books: books,
-    });
+    setBooks(books);
   };
 
-  render() {
-    const navBar = [
-      { name: "Home" },
-      { name: "My Books" },
-      { name: "Browse" },
-      { name: "Community" },
-      { name: "Sign In" },
-      { name: "Join" },
-    ];
-    return (
-      <>
-        <Header navBar={navBar} />
-        <input type="textbox"></input>
-        <button>Search Here</button>
-        <AddBook />
-        <MainContent books={this.state.books} />
-      </>
-    );
-  }
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
+
+  const filteredBooks = books.filter((book) =>
+    book.title.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const navBar = [
+    { name: "Home", path: "/" },
+    { name: "My Books", path: "/my-books" },
+    { name: "Browse", path: "/browse" },
+    { name: "Community", path: "/community" },
+  ];
+
+  return (
+    <>
+      <Header navBar={navBar} />
+      <input type="textbox" onChange={handleSearch} />
+      <button>Search Here</button>
+      <Routes>
+        <Route path="/" element={<MainContent books={filteredBooks} />} />
+        <Route path="/add-book" element={<AddBook />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </>
+  );
 }
+
 export default App;

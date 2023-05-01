@@ -1,20 +1,17 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Register() {
+function Register(props) {
   const navigate = useNavigate();
 
-  const [credentials, setCredentials] = useState({
-    username: "",
-    password: "",
-  });
+  const [user, setUser] = useState({});
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handelSignupInput = (e) => {
-    const { name, value } = e.target;
-    setCredentials((prevSetCredentials) => ({
-      ...prevSetCredentials,
-      [name]: value,
-    }));
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
   };
   const handleRegister = async () => {
     const response = await fetch("http://localhost:8080/register", {
@@ -22,18 +19,25 @@ function Register() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(credentials),
-    }).then((res) => res.json());
-    console.log(response);
-    navigate("/login");
+      body: JSON.stringify(user),
+    });
+
+    const result = await response.json();
+    if (result.success) {
+      localStorage.setItem("jwtToken", result.token);
+      navigate("/login");
+    } else {
+      const errorMessage = "Failed";
+      return errorMessage;
+    }
   };
 
   return (
     <>
-      <div class="login">
+      <div className="login">
         <h3>SIGN UP</h3>
         <div>
-          <label for="formGroupInput" class="form-label">
+          <label htmlFor="formGroupInput" className="form-label">
             Username
           </label>
         </div>
@@ -44,7 +48,7 @@ function Register() {
           onChange={handelSignupInput}
         />
         <div>
-          <label for="formGroupInput" class="form-label">
+          <label htmlFor="formGroupInput" className="form-label">
             Password
           </label>
         </div>
@@ -53,6 +57,7 @@ function Register() {
         <button onClick={handleRegister}>Register</button>
         <br />
         <a href="/login">Already a user? Log in here!</a>
+        {errorMessage}
       </div>
     </>
   );

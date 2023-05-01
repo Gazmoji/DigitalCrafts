@@ -3,10 +3,11 @@ const app = express();
 const cors = require("cors");
 const session = require("express-session");
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 require("dotenv").config();
 const User = require("./schemas/user");
-
+const authenticate = require("./middleware/authMiddleware");
 app.use(express.json());
 
 app.use(cors());
@@ -66,7 +67,7 @@ let books = [
   },
 ];
 
-app.post("/register-user", async (req, res) => {
+app.post("/register", async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
@@ -78,9 +79,12 @@ app.post("/register-user", async (req, res) => {
     password: hashedPassword,
   });
 
-  await user.save();
-  res.json({ success: true });
-  
+  if (user) {
+    const token = jwt.sign({ username: user.username }, "SECRETKEY");
+    res.json({ success: true, token: token });
+  } else {
+    res.json({ success: false, message: "Unable to Authenticate" });
+  }
 });
 
 app.post("/login-user", async (req, res) => {
@@ -91,14 +95,13 @@ app.post("/login-user", async (req, res) => {
   if (user) {
     const result = await bcrypt.compare(password, user.password);
     if (result) {
-      if (req.session) {
-        req.session.username = username;
-        req.session.userid = user._id;
-      }
-      res.json({ success: true });
+      const token = jwt.sign({ username: user.username }, "SECRETKEY");
+      res.json({ success: true, token: token });
     } else {
-      res.redirect("login");
+      res.json({ success: false, message: "Unable to Authenticate" });
     }
+  } else {
+    res.json({ errormessage: "User not found" });
   }
 });
 
@@ -143,7 +146,7 @@ app.post("/api/post/update", (req, res) => {
   };
 });
 
-app.get("/api/books", (req, res) => {
+app.get("/api/books", authenticate, (req, res) => {
   res.json(books);
 });
 
