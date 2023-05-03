@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import * as actionCreators from "./store/creators/actionCreators";
 
-const MainContent = (props) => {
+function MainContent(props) {
   const { books, addToCart } = props;
   const handleDeleteBook = async (bookid) => {
     const response = await fetch(`http://localhost:8080/api/books/${bookid}`, {
@@ -45,7 +45,7 @@ const MainContent = (props) => {
       <h3>Favorites: {props.favorite}</h3>
     </>
   );
-};
+}
 
 const mapStateToProps = (state) => {
   return {
@@ -57,7 +57,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addToCart: () => dispatch(actionCreators.books()),
-    addToFavorite: () => dispatch(actionCreators.favorite()),
+    addToFavorites: () => dispatch(actionCreators.favorite()),
   };
 };
 

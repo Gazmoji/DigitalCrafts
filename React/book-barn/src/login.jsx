@@ -8,14 +8,24 @@ function Login(props) {
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
-  const handleLogin = (token) => {
-    if (token) {
-      props.handleLogin(token);
+  const handleLogin = async () => {
+    const response = await fetch("http://localhost:8080/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const result = await response.json();
+    if (result.success) {
+      localStorage.setItem("jwtToken", result.token);
       navigate("/");
     } else {
       setErrorMessage("Invalid Credentials");
+      console.log(result);
     }
-  };
+  };0
   const handleChange = (e) => {
     setFormData({
       ...formData,

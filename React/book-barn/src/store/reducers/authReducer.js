@@ -11,6 +11,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         isAuth: (state.isAuth = true),
       };
+    case actionTypes.LOGOUT:
+      return {
+        ...state,
+        isAuth: (state.isAuth = false),
+      };
     default:
       return state;
   }

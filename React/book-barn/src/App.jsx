@@ -8,7 +8,7 @@ import { Route, Routes } from "react-router-dom";
 
 const token = localStorage.getItem("jwtToken");
 
-function App() {
+function App(props) {
   const [users, setUsers] = useState([]);
   const [books, setBooks] = useState([]);
   const [search, setSearch] = useState("");
@@ -39,15 +39,14 @@ function App() {
     setSearch(e.target.value);
   };
 
-  const filteredBooks = books.filter((book) =>
-    book.title.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredBooks = books.filter((book) => book.title);
 
   const navBar = [
     { name: "Home", path: "/" },
     { name: "My Books", path: "/my-books" },
     { name: "Browse", path: "/browse" },
     { name: "Community", path: "/community" },
+    { name: "Logout", path: "/logout" },
   ];
 
   return (
@@ -60,6 +59,7 @@ function App() {
         <Route path="/add-book" element={<AddBook />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        {props.isAuth ? <navBar to="/logout">Logout</navBar> : null}
       </Routes>
     </>
   );

@@ -33,13 +33,12 @@ app.use(
   })
 );
 
-app.get("/register-user", (req, res) => {
+app.get("/register", (req, res) => {
   res.json("register");
 });
 
 app.get("/login", (req, res) => {
   res.json("login");
-  res.redirect("/api/books");
 });
 
 let books = [
@@ -81,13 +80,14 @@ app.post("/register", async (req, res) => {
 
   if (user) {
     const token = jwt.sign({ username: user.username }, "SECRETKEY");
+    await user.save();
     res.json({ success: true, token: token });
   } else {
     res.json({ success: false, message: "Unable to Authenticate" });
   }
 });
 
-app.post("/login-user", async (req, res) => {
+app.post("/login", async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 

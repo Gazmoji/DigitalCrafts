@@ -8,8 +8,10 @@ export const books = () => {
 export const isAuth = () => {
   return {
     type: actionTypes.AUTH,
+    type: actionTypes.LOGOUT,
   };
 };
+
 export const favorite = () => {
   return {
     type: actionTypes.ADD_FAVORITE,
